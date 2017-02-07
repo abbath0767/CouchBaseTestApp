@@ -1,18 +1,24 @@
 package com.luxary_team.couchbasetestapp.data.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public final class Organization extends ParentModelObject {
 
-    private String mName;
+    private String name;
     private Long geo;
-    private Long type;
+    private Long idType;
+    private String type;
+
+    @JsonIgnore
+    public static final String TYPE = "organization";
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        name = name;
     }
 
     public Long getGeo() {
@@ -23,18 +29,26 @@ public final class Organization extends ParentModelObject {
         this.geo = geo;
     }
 
-    public Long getType() {
+    public Long getIdType() {
+        return idType;
+    }
+
+    public void setIdType(Long type) {
+        this.idType = type;
+    }
+
+    public String getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(String type) {
         this.type = type;
     }
 
     @Override
     public String toString() {
         return "Organization{" +
-                "mName='" + mName + '\'' +
+                "mName='" + name + '\'' +
                 ", geo=" + geo +
                 ", type=" + type +
                 '}';

@@ -27,11 +27,17 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
 
+    //couchbase
     compile 'com.couchbase.lite:couchbase-lite-android:1.2.1'
     compile 'com.couchbase.lite:couchbase-lite-java-listener:1.2.1'
     compile 'com.couchbase.lite:couchbase-lite-java-javascript:1.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
 
+    //stetho
     compile 'com.facebook.stetho:stetho:1.4.1'
     compile 'com.robotpajamas.stetho:stetho-couchbase:0.1.0'
+
+    //butterknife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
