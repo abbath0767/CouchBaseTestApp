@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DBHelper implements DBServiseInteface {
+public class DBHelper implements DBServiceInterface {
 
     private final static String TYPE = "type";
     private final static String ID = "_id";
