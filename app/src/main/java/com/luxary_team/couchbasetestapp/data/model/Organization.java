@@ -8,6 +8,7 @@ public final class Organization extends ParentModelObject {
     private String name;
     private Long geo;
     private Long idType;
+
     private String type;
 
     @JsonIgnore
@@ -18,7 +19,7 @@ public final class Organization extends ParentModelObject {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public Long getGeo() {
@@ -48,9 +49,10 @@ public final class Organization extends ParentModelObject {
     @Override
     public String toString() {
         return "Organization{" +
-                "mName='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", geo=" + geo +
-                ", type=" + type +
+                ", idType=" + idType +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

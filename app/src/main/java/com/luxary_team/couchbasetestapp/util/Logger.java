@@ -9,12 +9,26 @@ public class Logger {
 
     private static String TAG = "MY DEBUG TAG";
 
+    private Context mContext;
+    private static Logger instance;
+
+    private Logger(Context context) {
+        mContext = context;
+    }
+
+    public static Logger getInstance(Context context) {
+        if (instance == null)
+            instance = new Logger(context);
+
+        return instance;
+    }
+
     public static void log(String message) {
         Log.d(TAG, message);
     }
 
-    public static void logWithToast(String message, Context context) {
+    public void logWithToast(String message) {
         log(message);
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
     }
 }

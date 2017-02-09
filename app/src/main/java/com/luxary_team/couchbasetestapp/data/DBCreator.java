@@ -8,14 +8,16 @@ import com.couchbase.lite.Database;
 import com.couchbase.lite.DatabaseOptions;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.android.AndroidContext;
+import com.luxary_team.couchbasetestapp.util.Logger;
 
 import java.io.IOException;
 
 public final class DBCreator {
 
-    public static final String DB_NAME = "CouchBaseTest";
+    public static final String DB_NAME = "couchbasetest";
 
     public static void createNewDB(Context context) throws IOException, CouchbaseLiteException {
+        Logger.log("create db");
         DatabaseOptions options = new DatabaseOptions();
         options.setCreate(true);
 
@@ -25,6 +27,7 @@ public final class DBCreator {
     }
 
     public static boolean dbNotCreated(Context context) throws IOException, CouchbaseLiteException {
+        Logger.log("db create?");
 
         Database database;
         Manager manager = createManager(context);
@@ -35,6 +38,7 @@ public final class DBCreator {
     }
 
     public static Database getDb(Context context) throws IOException, CouchbaseLiteException {
+        Logger.log("get db");
         Manager manager = createManager(context);
 
         return manager.getDatabase(DB_NAME);

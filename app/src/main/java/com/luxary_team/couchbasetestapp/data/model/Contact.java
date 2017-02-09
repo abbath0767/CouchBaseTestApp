@@ -13,6 +13,16 @@ public final class Contact extends ParentModelObject {
     private String mPhone;
     private Long mSpecialization;
 
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getFirstName() {
         return mFirstName;
     }
