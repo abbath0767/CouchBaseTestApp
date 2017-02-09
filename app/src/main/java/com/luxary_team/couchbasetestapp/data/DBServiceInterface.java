@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DBServiceInterface {
     List<Organization> getOrganizations() throws CouchbaseLiteException;
+    void saveOrganization(Organization organization) throws CouchbaseLiteException;
 }

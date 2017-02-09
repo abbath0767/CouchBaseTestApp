@@ -14,6 +14,7 @@ import com.couchbase.lite.View;
 import com.couchbase.lite.android.AndroidContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.luxary_team.couchbasetestapp.data.model.Organization;
+import com.luxary_team.couchbasetestapp.util.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class DBHelper implements DBServiceInterface {
 
     private final static String TYPE = "type";
     private final static String ID = "_id";
+    private final static String REV = "_rev";
     private final static String QUERY_ORGANIZATIONS = "app/organizations";
     private final static String QUERY_ORGANIZATIONS_VERSION = "1";
 
@@ -69,6 +71,29 @@ public class DBHelper implements DBServiceInterface {
         }
 
         return organizationList;
+    }
+
+    @Override
+    public void saveOrganization(Organization organization) throws CouchbaseLiteException {
+        Logger.log("save org: " + organization.toString());
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> props = mapper.convertValue(organization, Map.class);
+        String id = (String) props.get("_id");
+
+        Document doc;
+
+        if (id == null) {
+            doc = mDatabase.createDocument();
+        } else {
+            doc = mDatabase.getExistingDocument(id);
+            if (doc == null) {
+                doc = mDatabase.getDocument(id);
+            } else {
+                props.put(REV, doc.getProperty(REV));
+            }
+        }
+
+        doc.putProperties(props);
     }
 
     public static <T> T modelForDocument(Document document, Class<T> aClass) {

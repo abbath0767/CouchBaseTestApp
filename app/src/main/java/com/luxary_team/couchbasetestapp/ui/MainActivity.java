@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mOrganizationsRecyclerView;
 
     private DBServiceInterface mDBService;
+    private List<Organization> mOrganizations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +38,6 @@ public class MainActivity extends AppCompatActivity {
         init();
 
         mOrganizationsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        try {
-            List<Organization> organizationsList = mDBService.getOrganizations();
-            Logger.log("Org-ion list size: " + organizationsList.size());
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-            Logger.log("error with getting org-ion list");
-        }
     }
 
     private void init() {
@@ -54,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             Logger.log("error with db");
         }
+        loadOrganizations();
     }
 
     private void openDialogForNewOrganization() {
@@ -61,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.setDialogClickListener(new CreateOrganizationDialog.CreateOrgDialogListener() {
             @Override
             public void clickSave(Organization organization) {
-                Logger.log("callback. org = " + organization.toString());
                 saveOrganizationToDB(organization);
             }
             @Override
@@ -73,7 +66,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveOrganizationToDB(final Organization organization) {
+        try {
+            mDBService.saveOrganization(organization);
+            notifyDataChanges();
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+            Logger.log("save error with org: " + organization);
+        }
+    }
 
+    private void loadOrganizations() {
+        try {
+            mOrganizations= mDBService.getOrganizations();
+            Logger.log("Org-ion list size: " + mOrganizations.size());
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+            Logger.log("error with getting org-ion list");
+        }
+    }
+
+    private void notifyDataChanges() {
+        loadOrganizations();
     }
 
     @Override
@@ -88,9 +101,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.icon_menu_add_new_org: {
                 Logger.log("click ADD");
-
                 openDialogForNewOrganization();
-
                 return true;
             }
             case R.id.icon_menu_sync: {

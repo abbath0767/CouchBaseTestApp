@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import com.luxary_team.couchbasetestapp.R;
 import com.luxary_team.couchbasetestapp.data.model.Organization;
-import com.luxary_team.couchbasetestapp.util.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,12 +59,10 @@ public class CreateOrganizationDialog extends Dialog implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == mSaveButton) {
-            Logger.log("click save");
             createAndFillOrganization();
             mCreateOrgDialogListener.clickSave(mOrganization);
             dismiss();
         } else if (v == mCancelButton) {
-            Logger.log("click cancel");
             mCreateOrgDialogListener.clickCancel();
             dismiss();
         }
